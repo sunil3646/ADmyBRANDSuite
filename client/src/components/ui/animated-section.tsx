@@ -14,12 +14,14 @@ const AnimatedSection = forwardRef<HTMLDivElement, AnimatedSectionProps>(
     return (
       <div
         ref={(el) => {
-          elementRef.current = el;
+          if (elementRef) {
+            (elementRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+          }
           if (ref) {
             if (typeof ref === 'function') {
               ref(el);
             } else {
-              ref.current = el;
+              (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
             }
           }
         }}
